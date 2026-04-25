@@ -1,0 +1,1 @@
+ALTER TABLE "agents" ADD COLUMN "language" text DEFAULT 'multi' NOT NULL;

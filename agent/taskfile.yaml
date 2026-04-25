@@ -1,0 +1,33 @@
+version: "3"
+dotenv: [".env.local"]
+vars:
+  PYTHON_MAIN: "./src/agent.py"
+
+tasks:
+  install:
+    desc: "Bootstrap application for local development"
+    cmds:
+      - "uv sync"
+
+  dev:
+    interactive: true
+    cmds:
+      - "uv run src/agent.py dev"
+
+  console:
+    interactive: true
+    cmds:
+      - "uv run src/agent.py console"
+
+  download-files:
+    cmds:
+      - "uv run src/agent.py download-files"
+
+  test:
+    cmds:
+      - "uv run pytest"
+
+  fmt:
+    cmds:
+      - "uv run ruff format"
+      - "uv run ruff check --fix"

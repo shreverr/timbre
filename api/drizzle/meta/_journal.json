@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1777017319549,
+      "tag": "0000_sweet_crystal",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1777018430625,
+      "tag": "0001_motionless_jasper_sitwell",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777023950942,
+      "tag": "0002_cloudy_talos",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777024609738,
+      "tag": "0003_natural_toad_men",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1777028583581,
+      "tag": "0004_productive_johnny_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1777042863914,
+      "tag": "0005_solid_black_crow",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1777046470173,
+      "tag": "0006_unique_ben_parker",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1777108941806,
+      "tag": "0007_crazy_colleen_wing",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1777113972149,
+      "tag": "0008_damp_dorian_gray",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1777117268612,
+      "tag": "0009_left_ronan",
+      "breakpoints": true
+    }
+  ]
+}
