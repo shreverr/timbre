@@ -27,6 +27,8 @@ app.use(
 
 app.get("/", (c) => c.text("Hello Hono!"));
 
+app.get("/health", (c) => c.json({ status: "ok" }));
+
 app.get("/me", requireAuth, (c) => {
   const user = c.get("user");
   return c.json({ user });

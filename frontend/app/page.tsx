@@ -3,6 +3,7 @@ import {
   LandingCall,
   LandingCallTrigger,
 } from "@/components/landing-call";
+import { WakeBackend } from "@/components/wake-backend";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       </main>
       <SiteFooter />
       <LandingCall />
+      <WakeBackend />
     </div>
   );
 }
