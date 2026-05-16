@@ -24,8 +24,7 @@ const jwks = new JwksClient({
   cache: true,
   cacheMaxEntries: 5,
   cacheMaxAge: 10 * 60 * 1000,
-  rateLimit: true,
-  jwksRequestsPerMinute: 10,
+  rateLimit: false,
 });
 
 function getKey(header: JwtHeader, callback: SigningKeyCallback) {

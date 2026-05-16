@@ -12,38 +12,12 @@ import { buildAgentMetadata } from "../telephony/dispatch-rules";
  *
  * Issues a short-lived LiveKit token without auth so any visitor can talk to
  * the demo agent. Picks `DEMO_AGENT_ID` if set, otherwise the first agent in
- * the system with a voice configured. Per-IP rate limiting prevents trivial
- * abuse; LiveKit minutes are still on the operator.
+ * the system with a voice configured.
  */
 
 const router = new Hono();
 
-const MAX_CONCURRENT_PER_IP = 2;
-const MAX_PER_IP_PER_HOUR = 10;
-const HOUR_MS = 60 * 60 * 1000;
 const CALL_TTL_MS = 10 * 60 * 1000;
-
-type DemoCall = { ip: string; startedAt: number; endsAt: number };
-const calls: DemoCall[] = [];
-
-function gc(now: number) {
-  let i = 0;
-  while (i < calls.length) {
-    if (calls[i]!.startedAt < now - HOUR_MS && calls[i]!.endsAt < now) {
-      calls.splice(i, 1);
-    } else {
-      i++;
-    }
-  }
-}
-
-function clientIp(c: import("hono").Context): string {
-  return (
-    c.req.header("x-forwarded-for")?.split(",")[0]?.trim() ||
-    c.req.header("x-real-ip") ||
-    "0.0.0.0"
-  );
-}
 
 async function pickDemoAgent() {
   if (env.DEMO_AGENT_ID) {
@@ -60,18 +34,6 @@ async function pickDemoAgent() {
 
 router.post("/demo/token", async (c) => {
   const now = Date.now();
-  gc(now);
-
-  const ip = clientIp(c);
-  const ipCalls = calls.filter((x) => x.ip === ip);
-  const concurrent = ipCalls.filter((x) => x.endsAt > now).length;
-  if (concurrent >= MAX_CONCURRENT_PER_IP) {
-    return c.json({ error: "concurrent_limit" }, 429);
-  }
-  const recent = ipCalls.filter((x) => x.startedAt > now - HOUR_MS).length;
-  if (recent >= MAX_PER_IP_PER_HOUR) {
-    return c.json({ error: "hourly_limit" }, 429);
-  }
 
   const agent = await pickDemoAgent();
   if (!agent) {
@@ -117,8 +79,6 @@ router.post("/demo/token", async (c) => {
     canPublishData: true,
   });
   const token = await at.toJwt();
-
-  calls.push({ ip, startedAt: now, endsAt: now + CALL_TTL_MS });
 
   return c.json({
     url: env.LIVEKIT_URL,
